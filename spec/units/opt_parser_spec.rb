@@ -6,8 +6,10 @@ RSpec.describe LogParser::OptParser do
 
     let(:argv) { ['path/to/file'] }
 
-    it 'initializes class with argv' do
-      expect(opt_parser.argv).to eq(argv)
+    describe '#initialize' do
+      it 'initializes class with argv' do
+        expect(opt_parser.argv).to eq(argv)
+      end
     end
 
     describe 'parse!' do

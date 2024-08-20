@@ -19,7 +19,7 @@ RSpec.describe 'log parser spec' do
 
     it 'exits with error message' do
       expect { parser.run }.to call_exit.with_message(
-        'Something went wrong: Row: (3. /home184.123.665.067) is invalid.'
+        'Something went wrong: Row: (3. /contact126.318.035.038) is invalid.'
       )
     end
   end

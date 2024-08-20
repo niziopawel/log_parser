@@ -31,14 +31,22 @@ RSpec.configure do |config|
 end
 
 RSpec::Matchers.define :call_exit do
+  actual_message = nil
+
   match do |block|
     block.call
   rescue SystemExit => e
-    @message == e.message
+    actual_message = e.message
+
+    @message == actual_message
   end
 
   chain :with_message do |message|
     @message = message
+  end
+
+  failure_message do
+    "expected message: '#{@message}' but got: '#{actual_message}'"
   end
 
   def supports_block_expectations?
