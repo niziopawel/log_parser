@@ -35,10 +35,15 @@ RSpec::Matchers.define :call_exit do
 
   match do |block|
     block.call
+    false
   rescue SystemExit => e
     actual_message = e.message
 
-    @message == actual_message
+    if @message
+      @message == actual_message
+    else
+      true
+    end
   end
 
   chain :with_message do |message|
@@ -46,7 +51,9 @@ RSpec::Matchers.define :call_exit do
   end
 
   failure_message do
-    "expected message: '#{@message}' but got: '#{actual_message}'"
+    return "expected message: '#{@message}' but got: '#{actual_message}'" if @message
+
+    "expected to call SystemExit but it didn't"
   end
 
   def supports_block_expectations?
